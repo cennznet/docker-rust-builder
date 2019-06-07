@@ -10,9 +10,8 @@ jobs:
           name: Build and push Docker image
           command: |
                 NIGHTLY_DATE="$(date +%Y%m%d)"
-                docker build -t cennznet/rust-builder:latest .
-                docker tag cennznet/rust-builder:latest cennznet/rust-builder:$NIGHTLY_DATE
                 docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
+                docker build --pull -t cennznet/rust-builder:latest -t cennznet/rust-builder:$NIGHTLY_DATE .
                 docker push cennznet/rust-builder:$NIGHTLY_DATE
                 docker push cennznet/rust-builder:latest
 workflows:
